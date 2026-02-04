@@ -22,8 +22,9 @@ public class Hooks {
     private static ExtentReports extent = ExtentManager.getExtent();
 
     @Before
-    public void setUp(Scenario scenario) {
+    public void setUp(Scenario scenario) throws Exception {
         DriverFactory.initDriver();
+        VideoRecorderUtil.startRecording(scenario.getName());
         ExtentTest test = extent.createTest(scenario.getName());
         ExtentTestManager.setTest(test);
     }
@@ -33,32 +34,35 @@ public class Hooks {
 
         if (scenario.isFailed()) {
 
-            // 1️⃣ Take screenshot
+            // 1️. Take screenshot
             byte[] screenshot = ScreenshotUtils.getScreenshot();
 
-            // 2️⃣ Allure
+            // 2️. Allure
             Allure.addAttachment("Failure Screenshot",
                     new ByteArrayInputStream(screenshot));
 
-            // 3️⃣ Extent
+            // 3️. Extent
             ExtentTestManager.getTest()
                     .addScreenCaptureFromBase64String(
                             ((TakesScreenshot) DriverFactory.getDriver())
                                     .getScreenshotAs(OutputType.BASE64));
-
-            // 4️⃣ Video
+            
+            // Stop video
             VideoRecorderUtil.stopRecording();
-            File video = VideoRecorderUtil.getLatestVideo();
-            Allure.addAttachment("Failure Video", new FileInputStream(video));
 
             ExtentTestManager.getTest().fail("Scenario Failed ❌");
 
         } else {
+        	VideoRecorderUtil.stopRecording();
             ExtentTestManager.getTest().pass("Scenario Passed ✅");
         }
-
-        DriverFactory.quitDriver();
+        
+        // Attach video
+        File video = VideoRecorderUtil.getLatestVideo();
+        Allure.addAttachment("Execution Video",
+                new FileInputStream(video));
         extent.flush();
+        DriverFactory.quitDriver();
         ExtentTestManager.unload();
     }
 }

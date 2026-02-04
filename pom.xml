@@ -106,9 +106,9 @@
 
 		<!-- =================== VIDEO RECORDING =================== -->
 		<dependency>
-			<groupId>com.github.stephenc.monte</groupId>
-			<artifactId>monte-screen-recorder</artifactId>
-			<version>0.7.7.0</version>
+			<groupId>com.automation-remarks</groupId>
+			<artifactId>video-recorder-core</artifactId>
+			<version>2.0</version>
 		</dependency>
 
 	</dependencies>
@@ -138,6 +138,12 @@
 				<groupId>io.qameta.allure</groupId>
 				<artifactId>allure-maven</artifactId>
 				<version>2.11.2</version>
+
+				<configuration>
+					<resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+					<reportDirectory>
+						${project.build.directory}/site/allure-maven-plugin</reportDirectory>
+				</configuration>
 			</plugin>
 
 		</plugins>

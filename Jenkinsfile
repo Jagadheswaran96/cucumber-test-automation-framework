@@ -30,7 +30,7 @@ pipeline {
     
     post {
 	    always {
-	        archiveArtifacts artifacts: 'target/videos/*.avi', allowEmptyArchive: true
+	        archiveArtifacts artifacts: 'videos/*.avi', allowEmptyArchive: true
 	        archiveArtifacts artifacts: 'target/ExtentReport.html', allowEmptyArchive: true
 	    }
 	}

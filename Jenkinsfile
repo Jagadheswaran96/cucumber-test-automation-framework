@@ -31,7 +31,17 @@ pipeline {
             }
             post {
                 always {
-                    junit 'target/surefire-reports/*.xml'
+                    script {
+                        if (fileExists('target/rerun.txt')) {
+                            def failedTests = readFile('target/rerun.txt').trim()
+                            if (failedTests.length() > 0) {
+                                echo '⚠ Failed scenarios found — Re-running only failed tests'
+                                bat 'mvn test -Prerun'
+                            } else {
+                                echo '✅ No failed scenarios to rerun'
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -45,7 +55,7 @@ pipeline {
 
     post {
         always {
-            // Publish Cucumber JSON
+            // Publish Cucumber Report
             cucumber 'target/cucumber.json'
 
             // Publish Allure Report
@@ -57,17 +67,17 @@ pipeline {
                 alwaysLinkToLastBuild: true
             ])
 
-            // Archive videos & Extent
+            // Archive artifacts
             archiveArtifacts artifacts: 'videos/**/*.avi', allowEmptyArchive: true
             archiveArtifacts artifacts: 'target/ExtentReport.html', allowEmptyArchive: true
         }
 
         success {
-            echo '✅ Cucumber tests passed'
+            echo '🎉 All Cucumber tests passed'
         }
 
         failure {
-            echo '❌ Cucumber tests failed – check Allure report'
+            echo '❌ Tests failed even after rerun — Check Allure Report'
         }
 
         cleanup {

@@ -10,6 +10,7 @@
 		<java.version>17</java.version>
 		<cucumber.version>7.15.0</cucumber.version>
 		<selenium.version>4.20.0</selenium.version>
+		<webdrivermanager.version>6.3.2</webdrivermanager.version>
 		<junit.version>4.13.2</junit.version>
 		<allure.version>2.25.0</allure.version>
 		<extent.version>5.1.1</extent.version>
@@ -53,7 +54,7 @@
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
-			<version>5.8.0</version>
+			<version>${webdrivermanager.version}</version>
 		</dependency>
 
 		<!-- =================== JUNIT =================== -->
@@ -123,7 +124,8 @@
 				<version>3.2.5</version>
 				<configuration>
 					<parallel>methods</parallel>
-					<threadCount>4</threadCount>
+					<threadCount>${threadCount}</threadCount>
+					<perCoreThreadCount>false</perCoreThreadCount>
 					<forkCount>2</forkCount>
 					<reuseForks>true</reuseForks>
 
@@ -148,5 +150,14 @@
 
 		</plugins>
 	</build>
+	
+	<profiles>
+    <profile>
+        <id>rerun</id>
+        <properties>
+            <cucumber.options>@target/failed_scenarios.txt</cucumber.options>
+        </properties>
+    </profile>
+</profiles>
 
 </project>

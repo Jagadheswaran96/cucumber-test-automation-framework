@@ -23,7 +23,9 @@ public class Hooks {
 
     @Before
     public void setUp(Scenario scenario) throws Exception {
-        DriverFactory.initDriver();
+    	
+    	String browser = System.getProperty("browser", "chrome");
+        DriverFactory.initDriver(browser);
         VideoRecorderUtil.startRecording(scenario.getName());
         ExtentTest test = extent.createTest(scenario.getName());
         ExtentTestManager.setTest(test);

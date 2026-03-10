@@ -15,7 +15,7 @@ import io.cucumber.junit.CucumberOptions;
         plugin = {
                 "pretty",
                 "summary",
-                //"html:target/cucumber-reports/cucumber.html",
+                "html:target//cucumber.html",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "rerun:target/failed_scenarios.txt"
         },

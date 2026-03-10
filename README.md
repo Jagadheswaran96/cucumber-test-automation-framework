@@ -1,4 +1,4 @@
-🚀 Selenium Cucumber Automation Framework (Java)
+🚀 Cucumber Selenium Automation Framework with Jenkins CI/CD and Cross Browser Testing
 
 A scalable, parallel-ready, CI/CD-enabled automation framework built using Selenium, Cucumber (BDD), JUnit, Maven, Allure, Extent Reports, and Jenkins with support for cross-browser execution, failure screenshots, and video recording.
 
@@ -8,6 +8,7 @@ A scalable, parallel-ready, CI/CD-enabled automation framework built using Selen
 ✔ Page Object Model (POM)
 ✔ Selenium WebDriver with Driver Factory
 ✔ Parallel Execution
+✔ Cross Browser Testing
 ✔ Retry for flaky tests
 ✔ Allure + Extent HTML Reporting
 ✔ Failure Screenshots
@@ -16,47 +17,57 @@ A scalable, parallel-ready, CI/CD-enabled automation framework built using Selen
 ✔ Maven based execution
 
 🧱 Tech Stack
-Layer	Technology
-Language	Java 17+
-UI Automation	Selenium WebDriver
-BDD	Cucumber
-Test Runner	JUnit
-Build Tool	Maven
-Reports	Allure, Extent
-CI/CD	Jenkins
-VCS	GitHub
+Java
+Selenium
+Cucumber
+TestNG
+Maven
+Jenkins
+GitHub
+Extent & Allure Reports
+
 📁 Framework Structure
-project-root
+cucumber-test-automation-framework/
 │
-├── pom.xml
-├── README.md
-├── src/test/java
-│   ├── com.lambda.cucumber
-│   │   ├── driver
-│   │   │   └── DriverFactory.java
-│   │   ├── hooks
-│   │   │   └── Hooks.java
-│   │   ├── pages
-│   │   │   └── LoginPage.java
-│   │   ├── steps
-│   │   │   └── LoginSteps.java
-│   │   ├── runners
-│   │   │   └── TestRunner.java
-│   │   └── utils
-│   │       ├── ScreenshotUtils.java
-│   │       ├── VideoRecorderUtil.java
-│   │       ├── ExtentManager.java
-│   │       └── ExtentTestManager.java
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com.lambda.cucumber/
+│   │   │       ├── config/              # Configuration reader
+│   │   │       │   └── ConfigReader.java
+│   │   │       ├── constants/           # Framework constants
+│   │   │       │   └── FrameworkConstants.java
+│   │   │       ├── driver/              # WebDriver factory
+│   │   │       │   └── DriverFactory.java
+│   │   │       └── utils/               # Utility classes
+│   │   │           ├── ExtentManager.java
+│   │   │           ├── ExtentTestManager.java
+│   │   │           ├── JsonUtils.java
+│   │   │           ├── LoggerUtils.java
+│   │   │           ├── ScreenshotUtils.java
+│   │   │           ├── VideoRecorderUtil.java
+│   │   │           └── WaitUtils.java
+│   │   └── resources/
+│   │       └── config.properties        # Config file
+│   │
+│   ├── test/
+│   │   ├── java/
+│   │   │   └── com.lambda.cucumber/
+│   │   │       ├── hooks/               # Cucumber hooks
+│   │   │       │   └── Hooks.java
+│   │   │       ├── pages/               # Page Object classes
+│   │   │       │   └── LoginPage.java
+│   │   │       ├── runner/              # Test runners
+│   │   │       │   ├── FailedTestRunner.java
+│   │   │       │   └── TestRunner.java
+│   │   │       └── stepdefinitions/     # Step definitions
+│   │   │           └── LoginSteps.java
+│   │   └── resources/
+│   │       ├── features/                # Feature files
+│   │       └── testdata/                # Test data
+│   │           └── loginData.json
 │
-├── src/test/resources
-│   ├── features
-│   │   └── login.feature
-│   └── allure.properties
-│
-└── target
-    ├── allure-results
-    ├── videos
-    └── screenshots
+└── target/                              # Build output (reports, etc.)
 
 🔹 Driver Management
 
@@ -111,7 +122,7 @@ Screen recording starts per scenario and stops on completion.
 
 Videos are stored in:
 
-target/videos
+target/video
 
 
 On failure, video is attached to:
@@ -142,7 +153,7 @@ Extent Report
 
 Automatically generated under:
 
-target/extent-report/index.html
+target/ExtentReport.html
 
 
 Contains:
@@ -202,8 +213,3 @@ Easy cloning and execution
 
 🧪 Run Tests
 mvn clean test
-
-
-Run with browser:
-
-mvn test -Dbrowser=edge

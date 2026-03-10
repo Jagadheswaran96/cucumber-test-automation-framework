@@ -10,6 +10,21 @@ pipeline {
         timestamps()
         disableConcurrentBuilds()
     }
+    
+    parameters {
+
+        choice(
+            name: 'TEST_TAG',
+            choices: ['@smoke','@regression','@smoke or @regression'],
+            description: 'Select test suite'
+        )
+
+        string(
+            name: 'THREADS',
+            defaultValue: '3',
+            description: 'Parallel scenario threads'
+        )
+    }
 
     stages {
 
@@ -25,24 +40,43 @@ pipeline {
             }
         }
 
-        stage('Run Cucumber Tests') {
-            steps {
-                bat 'mvn test'
-            }
-            post {
-                always {
-                    script {
-                        if (fileExists('target/rerun.txt')) {
-                            def failedTests = readFile('target/rerun.txt').trim()
-                            if (failedTests.length() > 0) {
-                                echo '⚠ Failed scenarios found — Re-running only failed tests'
-                                bat 'mvn test -Prerun'
-                            } else {
-                                echo '✅ No failed scenarios to rerun'
-                            }
-                        }
+        stage('Cross Browser Execution') {
+
+            matrix {
+
+                axes {
+                    axis {
+                        name 'BROWSER'
+                        values 'chrome', 'edge', 'firefox'
                     }
                 }
+
+                stage('Run Cucumber Tests') {
+					steps {
+						bat """
+						mvn test \
+						-Dbrowser=${params.BROWSER} \
+						-Dcucumber.filter.tags="${params.TEST_TAG}" \
+						-DthreadCount=${params.THREADS}
+						"""
+					}
+            
+					post {
+						always {
+							script {
+								if (fileExists('target/failed_scenarios.txt')) {
+									def failedTests = readFile('target/failed_scenarios.txt').trim()
+									if (failedTests.length() > 0) {
+										echo '⚠ Failed scenarios found — Re-running only failed tests'
+										bat 'mvn test -Prerun'
+									} else {
+										echo '✅ No failed scenarios to rerun'
+									}
+								}
+							}
+						}
+					}
+				}
             }
         }
 
@@ -56,7 +90,7 @@ pipeline {
     post {
         always {
             // Publish Cucumber Report
-            cucumber 'target/cucumber.json'
+            cucumber 'target/cucumber.html'
 
             // Publish Allure Report
             publishHTML([
@@ -68,7 +102,7 @@ pipeline {
             ])
 
             // Archive artifacts
-            archiveArtifacts artifacts: 'videos/**/*.avi', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'video/**/*.avi', allowEmptyArchive: true
             archiveArtifacts artifacts: 'target/ExtentReport.html', allowEmptyArchive: true
         }
 

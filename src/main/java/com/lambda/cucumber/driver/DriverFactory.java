@@ -15,8 +15,8 @@ public class DriverFactory {
 		return tlDriver.get();
 	}
 
-	public static void initDriver(){
-		String browser = ConfigReader.get("browser");
+	public static void initDriver(String browser){
+//		String browser = ConfigReader.get("browser");
 
 		if (browser.equalsIgnoreCase("chrome")){
 			WebDriverManager.chromedriver().setup();

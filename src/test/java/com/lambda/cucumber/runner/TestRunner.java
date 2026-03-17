@@ -25,10 +25,19 @@ import io.cucumber.junit.CucumberOptions;
                 "rerun:target/failed_scenarios.txt"
         },
         publish = true,
-        //To only run the scenarios specified with specific tags
-        tags = "@smoke and not @regression",
         //For console output from Cucumber in a readable format using monochrome
         monochrome = true
 )
 public class TestRunner {
+	
+	static {
+        // Read Jenkins/Maven injected properties and show it in console
+        String browser = System.getProperty("BROWSER"); 
+        String tags = System.getProperty("TEST_TAG"); 
+        String threads = System.getProperty("THREADS"); 
+
+        System.out.println(">>> Running on browser: " + browser);
+        System.out.println(">>> Filtering by tags: " + tags);
+        System.out.println(">>> Thread count: " + threads);
+    }
 }

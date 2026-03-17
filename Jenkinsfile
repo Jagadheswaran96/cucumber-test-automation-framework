@@ -53,12 +53,7 @@ pipeline {
 
                 stage('Run Cucumber Tests') {
 					steps {
-						bat """
-						mvn test \
-						-Dbrowser=${params.BROWSER} \
-						-Dcucumber.filter.tags="${params.TEST_TAG}" \
-						-DthreadCount=${params.THREADS}
-						"""
+						bat "mvn test"
 					}
             
 					post {

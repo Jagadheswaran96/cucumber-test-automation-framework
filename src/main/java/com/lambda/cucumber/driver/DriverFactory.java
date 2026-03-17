@@ -14,7 +14,7 @@ public class DriverFactory {
 	public static WebDriver getDriver(){
 		return tlDriver.get();
 	}
-
+	
 	public static void initDriver(String browser){
 //		String browser = ConfigReader.get("browser");
 

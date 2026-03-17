@@ -14,6 +14,9 @@
 		<junit.version>4.13.2</junit.version>
 		<allure.version>2.25.0</allure.version>
 		<extent.version>5.1.1</extent.version>
+		<THREADS>3</THREADS>
+		<TEST_TAG>@smoke</TEST_TAG>
+		<BROWSER>chrome</BROWSER>
 	</properties>
 
 	<dependencies>
@@ -124,12 +127,14 @@
 				<version>3.2.5</version>
 				<configuration>
 					<parallel>methods</parallel>
-					<threadCount>${threadCount}</threadCount>
+					<threadCount>${THREADS}</threadCount>
 					<perCoreThreadCount>false</perCoreThreadCount>
 					<forkCount>2</forkCount>
 					<reuseForks>true</reuseForks>
 
 					<systemPropertyVariables>
+						<browser>${BROWSER}</browser>
+						<cucumber.filter.tags>${TEST_TAG}</cucumber.filter.tags>
 						<allure.results.directory>target/allure-results</allure.results.directory>
 					</systemPropertyVariables>
 				</configuration>
@@ -150,14 +155,14 @@
 
 		</plugins>
 	</build>
-	
+
 	<profiles>
-    <profile>
-        <id>rerun</id>
-        <properties>
-            <cucumber.options>@target/failed_scenarios.txt</cucumber.options>
-        </properties>
-    </profile>
-</profiles>
+		<profile>
+			<id>rerun</id>
+			<properties>
+				<cucumber.options>@target/failed_scenarios.txt</cucumber.options>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>

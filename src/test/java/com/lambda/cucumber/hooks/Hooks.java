@@ -37,17 +37,13 @@ public class Hooks {
         if (scenario.isFailed()) {
 
             // 1️. Take screenshot
-            byte[] screenshot = ScreenshotUtils.getScreenshot();
+            String screenshot = ScreenshotUtils.getScreenshot();
 
             // 2️. Allure
-            Allure.addAttachment("Failure Screenshot",
-                    new ByteArrayInputStream(screenshot));
+            Allure.addAttachment("Failure Screenshot", screenshot);
 
             // 3️. Extent
-            ExtentTestManager.getTest()
-                    .addScreenCaptureFromBase64String(
-                            ((TakesScreenshot) DriverFactory.getDriver())
-                                    .getScreenshotAs(OutputType.BASE64));
+            ExtentTestManager.getTest().addScreenCaptureFromBase64String(screenshot);
             
             // Stop video
             VideoRecorderUtil.stopRecording();
@@ -61,8 +57,7 @@ public class Hooks {
         
         // Attach video
         File video = VideoRecorderUtil.getLatestVideo();
-        Allure.addAttachment("Execution Video",
-                new FileInputStream(video));
+        Allure.addAttachment("Execution Video", new FileInputStream(video));
         extent.flush();
         DriverFactory.quitDriver();
         ExtentTestManager.unload();

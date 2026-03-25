@@ -13,22 +13,22 @@ public class LoginPage {
     private By message = By.id("flash");
 
     public void enterUsername(String user){
-    	WaitUtils.waitForElement(username);
+    	WaitUtils.waitForElementVisible(DriverFactory.getDriver(), username);
         DriverFactory.getDriver().findElement(username).sendKeys(user);
     }
 
     public void enterPassword(String pass){
-    	WaitUtils.waitForElement(password);
+    	WaitUtils.waitForElementVisible(DriverFactory.getDriver(), password);
         DriverFactory.getDriver().findElement(password).sendKeys(pass);
     }
 
     public void clickLogin(){
-    	WaitUtils.waitForElement(loginBtn);
+    	WaitUtils.waitForElementVisible(DriverFactory.getDriver(), loginBtn);
         DriverFactory.getDriver().findElement(loginBtn).click();
     }
 
     public String getMessage(){
-    	WaitUtils.waitForElement(message);
+    	WaitUtils.waitForElementVisible(DriverFactory.getDriver(), message);
         return DriverFactory.getDriver().findElement(message).getText().trim();
     }
 }

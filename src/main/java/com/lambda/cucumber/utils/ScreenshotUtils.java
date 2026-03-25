@@ -6,8 +6,8 @@ import org.openqa.selenium.TakesScreenshot;
 
 public class ScreenshotUtils {
 
-	public static byte[] getScreenshot(){
+	public static String getScreenshot(){
 		return ((TakesScreenshot) DriverFactory.getDriver())
-				.getScreenshotAs(OutputType.BYTES);
+				.getScreenshotAs(OutputType.BASE64);
 	}
 }

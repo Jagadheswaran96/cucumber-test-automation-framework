@@ -1,17 +1,42 @@
 package com.lambda.cucumber.utils;
 
-import com.lambda.cucumber.driver.DriverFactory;
+import java.time.Duration;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 public class WaitUtils {
 
-    public static void waitForElement(By locator){
-        WebDriverWait wait = new WebDriverWait(
-                DriverFactory.getDriver(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    private static final int DEFAULT_TIMEOUT = 10;
+
+    private WaitUtils() {
+        // private constructor to prevent instantiation
+    }
+
+    public static WebDriverWait getWait(WebDriver driver, int timeoutInSeconds) {
+        return new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+    }
+
+    public static WebElement waitForElementVisible(WebDriver driver, By locator) {
+        return getWait(driver, DEFAULT_TIMEOUT)
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public static WebElement waitForElementClickable(WebDriver driver, By locator) {
+        return getWait(driver, DEFAULT_TIMEOUT)
+                .until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public static boolean waitForTextPresent(WebDriver driver, By locator, String text) {
+        return getWait(driver, DEFAULT_TIMEOUT)
+                .until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
+    }
+
+    public static boolean waitForUrlContains(WebDriver driver, String fraction) {
+        return getWait(driver, DEFAULT_TIMEOUT)
+                .until(ExpectedConditions.urlContains(fraction));
     }
 }
+

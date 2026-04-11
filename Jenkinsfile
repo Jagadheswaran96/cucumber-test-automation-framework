@@ -122,11 +122,11 @@ pipeline {
         }
 
         success {
-            echo '🎉 All Cucumber tests passed'
+            echo 'All Cucumber tests passed'
         }
 
         failure {
-            echo '❌ Tests failed even after rerun — Check Allure Report'
+            echo 'Tests failed even after rerun — Check Allure Report'
         }
 
         cleanup {

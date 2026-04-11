@@ -5,6 +5,7 @@ pipeline {
     tools {
         maven 'Maven'
         //jdk 'JDK17'
+        allure 'Allure'
     }
 
     options {

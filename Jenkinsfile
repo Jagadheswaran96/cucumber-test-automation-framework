@@ -2,6 +2,10 @@ pipeline {
 
 // webhook
     agent any
+    
+    cleanup {
+            cleanWs()
+        }
 
     tools {
         maven 'Maven'
@@ -107,11 +111,12 @@ pipeline {
     post {
         always {
             // Publish Cucumber Report
-            cucumber 'target/cucumber.html'
+            cucumber 'target/cucumber.html',
+            cucumber 'target/cucumber.json'
 
             // Publish Allure Report
             publishHTML([
-                reportDir: 'target/allure-maven-plugin',
+                reportDir: 'target/site/allure-maven-plugin',
                 reportFiles: 'index.html',
                 reportName: 'Allure Report',
                 keepAll: true,
@@ -130,10 +135,6 @@ pipeline {
 
         failure {
             echo 'Tests failed even after rerun — Check Allure Report'
-        }
-
-        cleanup {
-            cleanWs()
         }
     }
 }

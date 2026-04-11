@@ -147,9 +147,9 @@
 				<version>2.11.2</version>
 
 				<configuration>
-					<resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+					<resultsDirectory>${project.build.directory}/target/allure-results</resultsDirectory>
 					<reportDirectory>
-						${project.build.directory}/site/allure-maven-plugin</reportDirectory>
+						${project.build.directory}/target/site/allure-maven-plugin</reportDirectory>
 				</configuration>
 			</plugin>
 

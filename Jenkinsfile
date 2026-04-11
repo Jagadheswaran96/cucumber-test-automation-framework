@@ -5,7 +5,7 @@ pipeline {
 
     tools {
         maven 'Maven'
-        jdk 'JDK17'
+        //jdk 'JDK17'
     }
 
     options {
@@ -70,7 +70,8 @@ pipeline {
                         values 'chrome', 'edge', 'firefox'
                     }
                 }
-
+				
+				stages {
                 stage('Run Cucumber Tests') {
 					steps {
 						bat "mvn test"
@@ -91,6 +92,7 @@ pipeline {
 							}
 						}
 					}
+				}
 				}
             }
         }
@@ -114,6 +116,7 @@ pipeline {
                 reportName: 'Allure Report',
                 keepAll: true,
                 alwaysLinkToLastBuild: true
+                allowMissing: false
             ])
 
             // Archive artifacts

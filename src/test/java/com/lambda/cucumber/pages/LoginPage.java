@@ -11,7 +11,7 @@ public class LoginPage {
     private By username = By.id("username");
     private By password = By.id("password");
     private By loginBtn = By.xpath("//button[@type='submit']");
-    private By message = By.id("flash");
+    private By message = By.cssSelector("div#flash");
 
     public void enterUsername(String user){
     	WaitUtils.waitForElementVisible(DriverFactory.getDriver(), username);
@@ -30,7 +30,8 @@ public class LoginPage {
 
     public String getMessage(){
     	WaitUtils.waitForElementVisible(DriverFactory.getDriver(), message);
-        return DriverFactory.getDriver().findElement(message).getText().trim();
+        String message = DriverFactory.getDriver().findElement(By.cssSelector("div#flash")).getText();
+        return message.split("×")[0].trim();
     }
     
     public void userIsLoggedIn() {

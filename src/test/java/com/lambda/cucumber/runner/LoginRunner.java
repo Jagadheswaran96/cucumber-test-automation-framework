@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/login.feature",
         glue = {
         		"com.lambda.cucumber.stepdefinitions",
         		"com.lambda.cucumber.hooks"
@@ -22,7 +22,8 @@ import io.cucumber.junit.CucumberOptions;
                 "html:target/cucumber.html",
                 "json:target/cucumber.json",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
-                "rerun:target/failed_scenarios.txt"
+                "timeline:target/cucumber-timeline",
+                "rerun:target/failed_login_scenarios.txt"
         },
         //To publish cucumber report online
         publish = true,
@@ -30,16 +31,7 @@ import io.cucumber.junit.CucumberOptions;
         monochrome = true,
         tags = "@smoke or @regression"
 )
-public class TestRunner {
+
+public class LoginRunner {
 	
-//	static {
-//        // Read Jenkins/Maven injected properties and show it in console
-//        String browser = System.getProperty("BROWSER"); 
-//        String tags = System.getProperty("TEST_TAG"); 
-//        String threads = System.getProperty("THREADS"); 
-//
-//        System.out.println(">>> Running on browser: " + browser);
-//        System.out.println(">>> Filtering by tags: " + tags);
-//        System.out.println(">>> Thread count: " + threads);
-//    }
 }

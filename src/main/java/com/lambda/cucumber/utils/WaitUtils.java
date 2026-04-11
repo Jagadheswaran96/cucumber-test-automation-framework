@@ -1,6 +1,8 @@
 package com.lambda.cucumber.utils;
 
 import java.time.Duration;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,6 +39,11 @@ public class WaitUtils {
     public static boolean waitForUrlContains(WebDriver driver, String fraction) {
         return getWait(driver, DEFAULT_TIMEOUT)
                 .until(ExpectedConditions.urlContains(fraction));
+    }
+    
+    public static Alert waitForAlertPresent(WebDriver driver) {
+        return getWait(driver, DEFAULT_TIMEOUT)
+                .until(ExpectedConditions.alertIsPresent());
     }
 }
 

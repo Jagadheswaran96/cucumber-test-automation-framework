@@ -2,11 +2,13 @@ package com.lambda.cucumber.hooks;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.lambda.cucumber.config.ConfigReader;
 import com.lambda.cucumber.driver.DriverFactory;
 import com.lambda.cucumber.utils.ExtentManager;
 import com.lambda.cucumber.utils.ExtentTestManager;
 import com.lambda.cucumber.utils.VideoRecorderUtil;
 import com.lambda.cucumber.utils.ScreenshotUtils;
+import com.lambda.cucumber.utils.SessionManager;
 
 import io.cucumber.java.*;
 import io.cucumber.java.Scenario;
@@ -21,8 +23,9 @@ public class Hooks {
     @Before
     public static void setUp(Scenario scenario) throws Exception {
     	
-    	String browser = System.getProperty("BROWSER");
+    	String browser = System.getProperty("BROWSER", "chrome");
         DriverFactory.initDriver(browser);
+        SessionManager.applySession(DriverFactory.getDriver(), ConfigReader.get("baseUrl"), ConfigReader.get("loggedInUrl"));
         VideoRecorderUtil.startRecording(scenario.getName());
         ExtentTest test = extent.createTest(scenario.getName());
         ExtentTestManager.setTest(test);

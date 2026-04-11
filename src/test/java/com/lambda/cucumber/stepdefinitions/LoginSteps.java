@@ -34,7 +34,7 @@ public class LoginSteps {
 	    System.out.println(loginMessage);
 	    login.userIsLoggedIn();
 	    //Assert.assertEquals("Test", "Testing");
-	    //Assert.assertEquals("Login message", "You logged into a secure area!", loginMessage);
+	    Assert.assertEquals("Login message", "You logged into a secure area!", loginMessage);
 	    //Assert.fail("Forcing failure");
 	}
 }

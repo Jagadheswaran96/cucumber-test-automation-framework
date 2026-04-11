@@ -1,10 +1,13 @@
 package com.lambda.cucumber.driver;
 
 import com.lambda.cucumber.config.*;
+import com.lambda.cucumber.utils.BrowserOptions;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -21,7 +24,8 @@ public class DriverFactory {
 
 		if (browser.equalsIgnoreCase("chrome")){
 			WebDriverManager.chromedriver().setup();
-			tlDriver.set(new ChromeDriver());
+			ChromeOptions options = BrowserOptions.chromeOptions(DriverFactory.getDriver());
+			tlDriver.set(new ChromeDriver(options));
 		}
 		else if (browser.equalsIgnoreCase("firefox")){
 			WebDriverManager.firefoxdriver().setup();
@@ -33,7 +37,8 @@ public class DriverFactory {
 		}
 
 		getDriver().manage().window().maximize();
-		getDriver().get(ConfigReader.get("url"));
+		getDriver().get(ConfigReader.get("baseUrl"));
+		getDriver().get(ConfigReader.get("loginUrl"));
 
 	}
 

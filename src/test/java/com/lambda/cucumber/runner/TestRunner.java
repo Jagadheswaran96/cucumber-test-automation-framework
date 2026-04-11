@@ -17,7 +17,7 @@ import io.cucumber.junit.CucumberOptions;
         plugin = {
         		//Two formatter plugins pretty and html
                 "pretty",
-        		//Print code snippets for missing step definitions using summary plugin.
+        		//Print code snippets for missing step definitions using summary plugin
                 "summary",
                 "html:target/cucumber.html",
                 "json:target/cucumber.json",

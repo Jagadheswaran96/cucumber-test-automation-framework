@@ -1,4 +1,6 @@
 pipeline {
+
+// webhook
     agent any
 
     tools {
@@ -80,10 +82,10 @@ pipeline {
 								if (fileExists('target/failed_scenarios.txt')) {
 									def failedTests = readFile('target/failed_scenarios.txt').trim()
 									if (failedTests.length() > 0) {
-										echo '⚠ Failed scenarios found — Re-running only failed tests'
+										echo 'Failed scenarios found — Re-running only failed tests'
 										bat 'mvn test -Prerun'
 									} else {
-										echo '✅ No failed scenarios to rerun'
+										echo 'No failed scenarios to rerun'
 									}
 								}
 							}

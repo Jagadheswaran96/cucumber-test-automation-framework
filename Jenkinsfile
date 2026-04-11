@@ -2,10 +2,6 @@ pipeline {
 
 // webhook
     agent any
-    
-    cleanup {
-            cleanWs()
-        }
 
     tools {
         maven 'Maven'
@@ -33,6 +29,12 @@ pipeline {
     }
 
     stages {
+    
+    	stage('Workspace Cleanup') {
+		    steps {
+		        cleanWs()
+		    }
+		}
 
         stage('Checkout') {
             steps {
@@ -111,8 +113,9 @@ pipeline {
     post {
         always {
             // Publish Cucumber Report
-            cucumber 'target/cucumber.html',
             cucumber 'target/cucumber.json'
+
+	        cucumber 'target/cucumber.html'
 
             // Publish Allure Report
             publishHTML([

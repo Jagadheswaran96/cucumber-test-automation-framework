@@ -36,7 +36,7 @@ pipeline {
             }
         }
         
-         stage('Install Browsers + Drivers') {
+         /*stage('Install Browsers + Drivers') {
             steps {
                 bat '''
                 :: Install Google Chrome + ChromeDriver
@@ -52,7 +52,7 @@ pipeline {
                 choco install edgedriver -y
                 '''
             }
-        }
+        }*/
 
         stage('Clean & Build') {
             steps {

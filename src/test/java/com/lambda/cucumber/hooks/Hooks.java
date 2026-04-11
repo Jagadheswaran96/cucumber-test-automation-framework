@@ -18,7 +18,7 @@ public class Hooks {
 
     private static ExtentReports extent = ExtentManager.getExtent();
 
-    @BeforeAll
+    @Before
     public static void setUp(Scenario scenario) throws Exception {
     	
     	String browser = System.getProperty("BROWSER");
@@ -26,6 +26,7 @@ public class Hooks {
         VideoRecorderUtil.startRecording(scenario.getName());
         ExtentTest test = extent.createTest(scenario.getName());
         ExtentTestManager.setTest(test);
+        
     }
 
     @After
@@ -45,18 +46,19 @@ public class Hooks {
             // Stop video
             VideoRecorderUtil.stopRecording();
 
-            ExtentTestManager.getTest().fail("Scenario Failed ❌");
+            ExtentTestManager.getTest().fail("Scenario Failed");
 
         } else {
         	VideoRecorderUtil.stopRecording();
-            ExtentTestManager.getTest().pass("Scenario Passed ✅");
+            ExtentTestManager.getTest().pass("Scenario Passed");
         }
         
         // Attach video
         File video = VideoRecorderUtil.getLatestVideo();
         Allure.addAttachment("Execution Video", new FileInputStream(video));
         extent.flush();
-        DriverFactory.quitDriver();
         ExtentTestManager.unload();
+        DriverFactory.quitDriver();
+        
     }
 }

@@ -1,6 +1,7 @@
+@login
 Feature: Login
 
-  @login @smoke @regression
+  @smoke @regression
   Scenario: Valid Login
     Given user is on login page
     When user enters valid credentials

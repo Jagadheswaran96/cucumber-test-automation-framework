@@ -1,6 +1,5 @@
 pipeline {
 
-// webhook
     agent any
 
     tools {
@@ -30,12 +29,6 @@ pipeline {
 
     stages {
     
-    	stage('Workspace Cleanup') {
-		    steps {
-		        cleanWs()
-		    }
-		}
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -139,5 +132,9 @@ pipeline {
         failure {
             echo 'Tests failed even after rerun — Check Allure Report'
         }
+        
+         cleanup {
+	        cleanWs()
+	    }
     }
 }

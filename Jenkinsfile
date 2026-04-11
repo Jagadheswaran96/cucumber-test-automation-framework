@@ -82,7 +82,7 @@ pipeline {
 								if (fileExists('target/failed_scenarios.txt')) {
 									def failedTests = readFile('target/failed_scenarios.txt').trim()
 									if (failedTests.length() > 0) {
-										echo 'Failed scenarios found — Re-running only failed tests'
+										echo 'Failed scenarios found. Re-running only failed tests'
 										bat 'mvn test -Prerun'
 									} else {
 										echo 'No failed scenarios to rerun'
@@ -97,14 +97,23 @@ pipeline {
         }
 
         stage('Generate Allure Report') {
-            steps {
-                bat 'mvn allure:report'
-            }
-        }
+		    steps {
+		        script {
+		            try {
+		                bat "mvn allure:report"
+		            } catch (err) {
+		                echo "Report generation failed, but continuing..."
+		            }
+		        }
+		    }
+		}
     }
 
     post {
         always {
+        
+        	bat "mvn allure:report"
+        	
             // Publish Cucumber Report
             cucumber 'target/cucumber.json'
 
@@ -116,10 +125,11 @@ pipeline {
 		    reportName: 'Allure Report',
 		    keepAll: true,
 		    alwaysLinkToLastBuild: true,
-		    allowMissing: false
+		    allowMissing: true
 		])
 
             // Archive artifacts
+            archiveArtifacts artifacts: 'target/allure-results/**', allowEmptyArchive: true
             archiveArtifacts artifacts: 'video/**/*.avi', allowEmptyArchive: true
             archiveArtifacts artifacts: 'target/ExtentReport.html', allowEmptyArchive: true
         }
@@ -129,7 +139,7 @@ pipeline {
         }
 
         failure {
-            echo 'Tests failed even after rerun — Check Allure Report'
+            echo 'Tests failed even after rerun. Check Allure Report'
         }
         
          cleanup {

@@ -33,6 +33,24 @@ pipeline {
                 checkout scm
             }
         }
+        
+         stage('Install Browsers + Drivers') {
+            steps {
+                bat '''
+                :: Install Google Chrome + ChromeDriver
+                choco install googlechrome -y
+                choco install chromedriver -y
+
+                :: Install Firefox + GeckoDriver
+                choco install firefox -y
+                choco install geckodriver -y
+
+                :: Install Microsoft Edge + EdgeDriver
+                choco install microsoft-edge -y
+                choco install edgedriver -y
+                '''
+            }
+        }
 
         stage('Clean & Build') {
             steps {

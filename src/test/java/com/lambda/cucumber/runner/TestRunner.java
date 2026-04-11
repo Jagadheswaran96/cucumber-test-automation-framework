@@ -16,8 +16,8 @@ import io.cucumber.junit.CucumberOptions;
         dryRun = true,
         plugin = {
         		//Two formatter plugins pretty and html
-        		//print code snippets for missing step definitions using summary plugin
                 "pretty",
+        		//Print code snippets for missing step definitions using summary plugin
                 "summary",
                 "html:target/cucumber.html",
                 "json:target/cucumber.json",

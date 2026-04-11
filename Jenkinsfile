@@ -115,7 +115,7 @@ pipeline {
                 reportFiles: 'index.html',
                 reportName: 'Allure Report',
                 keepAll: true,
-                alwaysLinkToLastBuild: true
+                alwaysLinkToLastBuild: true,
                 allowMissing: false
             ])
 

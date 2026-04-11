@@ -131,7 +131,6 @@
 					<perCoreThreadCount>false</perCoreThreadCount>
 					<forkCount>2</forkCount>
 					<reuseForks>true</reuseForks>
-
 					<systemPropertyVariables>
 						<browser>${BROWSER}</browser>
 						<cucumber.filter.tags>${TEST_TAG}</cucumber.filter.tags>

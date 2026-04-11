@@ -7,20 +7,21 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "@target/failed_scenarios.txt",
-        glue = {
-        		"com.lambda.cucumber.stepdefinitions",
-        		"com.lambda.cucumber.hooks"
-        },
-        plugin = {
-                "pretty",
-                "summary",
-                "html:target//cucumber.html",
-                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
-                "rerun:target/failed_scenarios.txt"
-        },
-        publish = true,
-        monochrome = true
-)
+		features = "@target/failed_scenarios.txt",
+		glue = {
+				"com.lambda.cucumber.stepdefinitions",
+				"com.lambda.cucumber.hooks"
+		},
+		plugin = {
+				"pretty",
+				"summary",
+				"html:target//cucumber.html",
+				"json:target/cucumber.json",
+				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
+				"rerun:target/failed_scenarios.txt"
+		},
+		publish = true,
+		monochrome = true
+		)
 public class FailedTestRunner {
 }

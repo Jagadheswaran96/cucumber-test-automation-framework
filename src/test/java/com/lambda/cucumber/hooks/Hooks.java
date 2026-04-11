@@ -9,11 +9,8 @@ import com.lambda.cucumber.utils.VideoRecorderUtil;
 import com.lambda.cucumber.utils.ScreenshotUtils;
 
 import io.cucumber.java.*;
+import io.cucumber.java.Scenario;
 import io.qameta.allure.Allure;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -21,8 +18,8 @@ public class Hooks {
 
     private static ExtentReports extent = ExtentManager.getExtent();
 
-    @Before
-    public void setUp(Scenario scenario) throws Exception {
+    @BeforeAll
+    public static void setUp(Scenario scenario) throws Exception {
     	
     	String browser = System.getProperty("BROWSER");
         DriverFactory.initDriver(browser);
@@ -32,7 +29,7 @@ public class Hooks {
     }
 
     @After
-    public void tearDown(Scenario scenario) throws Exception {
+    public static void tearDown(Scenario scenario) throws Exception {
 
         if (scenario.isFailed()) {
 

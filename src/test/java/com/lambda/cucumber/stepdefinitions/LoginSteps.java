@@ -1,14 +1,10 @@
 package com.lambda.cucumber.stepdefinitions;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Assert;
 import org.slf4j.Logger;
 
 import com.lambda.cucumber.pages.LoginPage;
 import com.lambda.cucumber.utils.JsonUtils;
 import com.lambda.cucumber.utils.LoggerUtils;
-
 import io.cucumber.java.en.*;
 
 public class LoginSteps {
@@ -35,6 +31,7 @@ public class LoginSteps {
 		log.info("Verifying successful login");
 		String loginMessage = login.getMessage();
 	    System.out.println(loginMessage);
+	    login.userIsLoggedIn();
 	    //assertEquals("Login message", "You logged into a secure area!", loginMessage);
 	    //Assert.fail("Forcing failure");
 	}

@@ -1,6 +1,7 @@
 package com.lambda.cucumber.pages;
 
 import com.lambda.cucumber.driver.DriverFactory;
+import com.lambda.cucumber.utils.SessionManager;
 import com.lambda.cucumber.utils.WaitUtils;
 
 import org.openqa.selenium.By;
@@ -30,5 +31,9 @@ public class LoginPage {
     public String getMessage(){
     	WaitUtils.waitForElementVisible(DriverFactory.getDriver(), message);
         return DriverFactory.getDriver().findElement(message).getText().trim();
+    }
+    
+    public void userIsLoggedIn() {
+        SessionManager.saveSession(DriverFactory.getDriver());
     }
 }

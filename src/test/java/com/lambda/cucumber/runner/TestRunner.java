@@ -15,7 +15,7 @@ import io.cucumber.junit.CucumberOptions;
         //check whether all feature file steps have corresponding step definitions using dryRun
         dryRun = true,
         plugin = {
-        		// Two formatter plugins pretty and html
+        		//Two formatter plugins pretty and html
         		//print code snippets for missing step definitions using summary plugin
                 "pretty",
                 "summary",
@@ -24,9 +24,11 @@ import io.cucumber.junit.CucumberOptions;
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "rerun:target/failed_scenarios.txt"
         },
+        //To publish cucumber report online
         publish = true,
         //For console output from Cucumber in a readable format using monochrome
-        monochrome = true
+        monochrome = true,
+        tags = "@smoke or @regression"
 )
 public class TestRunner {
 	

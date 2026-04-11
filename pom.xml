@@ -15,7 +15,7 @@
 		<junit.version>4.13.2</junit.version>
 		<allure.version>2.25.0</allure.version>
 		<extent.version>5.1.1</extent.version>
-		<THREADS>3</THREADS>
+		<threadCount>3</threadCount>
 		<TEST_TAG>@smoke</TEST_TAG>
 		<BROWSER>chrome</BROWSER>
 	</properties>

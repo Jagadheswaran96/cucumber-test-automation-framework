@@ -115,7 +115,7 @@ pipeline {
         
         	bat "mvn allure:report"
         	
-            // Publish Cucumber Report
+            //Publish Cucumber Report
             cucumber 'target/cucumber.json'
 
 	        cucumber 'target/cucumber.html'
@@ -129,7 +129,7 @@ pipeline {
 		    allowMissing: true
 		])
 
-            // Archive artifacts
+            //Archive artifacts
             archiveArtifacts artifacts: 'target/allure-results/**', allowEmptyArchive: true
             archiveArtifacts artifacts: 'video/**/*.avi', allowEmptyArchive: true
             archiveArtifacts artifacts: 'target/ExtentReport.html', allowEmptyArchive: true
@@ -143,8 +143,8 @@ pipeline {
             echo 'Tests failed even after rerun. Check Allure Report'
         }
         
-         cleanup {
+        /*cleanup {
 	        cleanWs()
-	    }
+	    }*/
     }
 }

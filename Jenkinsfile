@@ -110,15 +110,14 @@ pipeline {
 
 	        cucumber 'target/cucumber.html'
 
-            // Publish Allure Report
-            publishHTML([
-                reportDir: 'target/site/allure-maven-plugin',
-                reportFiles: 'index.html',
-                reportName: 'Allure Report',
-                keepAll: true,
-                alwaysLinkToLastBuild: true,
-                allowMissing: false
-            ])
+          publishHTML([
+		    reportDir: 'target/site/allure-maven-plugin',
+		    reportFiles: 'index.html',
+		    reportName: 'Allure Report',
+		    keepAll: true,
+		    alwaysLinkToLastBuild: true,
+		    allowMissing: false
+		])
 
             // Archive artifacts
             archiveArtifacts artifacts: 'video/**/*.avi', allowEmptyArchive: true

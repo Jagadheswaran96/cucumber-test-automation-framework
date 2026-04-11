@@ -1,5 +1,6 @@
 package com.lambda.cucumber.stepdefinitions;
 
+import org.junit.Assert;
 import org.slf4j.Logger;
 
 import com.lambda.cucumber.pages.LoginPage;
@@ -32,7 +33,8 @@ public class LoginSteps {
 		String loginMessage = login.getMessage();
 	    System.out.println(loginMessage);
 	    login.userIsLoggedIn();
-	    //assertEquals("Login message", "You logged into a secure area!", loginMessage);
+	    Assert.assertEquals("Test", "Testing");
+	    Assert.assertEquals("Login message", "You logged into a secure area!", loginMessage);
 	    //Assert.fail("Forcing failure");
 	}
 }

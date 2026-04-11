@@ -32,7 +32,7 @@ public class Hooks {
     @After
     public static void tearDown(Scenario scenario) throws Exception {
 
-        if (scenario.isFailed()) {
+        if (scenario.isFailed() && DriverFactory.getDriver() != null) {
 
             // 1️. Take screenshot
             String screenshot = ScreenshotUtils.getScreenshot();

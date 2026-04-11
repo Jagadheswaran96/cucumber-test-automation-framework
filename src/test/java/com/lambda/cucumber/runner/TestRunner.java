@@ -13,7 +13,7 @@ import io.cucumber.junit.CucumberOptions;
         		"com.lambda.cucumber.hooks"
         },
         //check whether all feature file steps have corresponding step definitions using dryRun
-        dryRun = true,
+        dryRun = false,
         plugin = {
         		//Two formatter plugins pretty and html
                 "pretty",
@@ -32,14 +32,14 @@ import io.cucumber.junit.CucumberOptions;
 )
 public class TestRunner {
 	
-	static {
-        // Read Jenkins/Maven injected properties and show it in console
-        String browser = System.getProperty("BROWSER"); 
-        String tags = System.getProperty("TEST_TAG"); 
-        String threads = System.getProperty("THREADS"); 
-
-        System.out.println(">>> Running on browser: " + browser);
-        System.out.println(">>> Filtering by tags: " + tags);
-        System.out.println(">>> Thread count: " + threads);
-    }
+//	static {
+//        // Read Jenkins/Maven injected properties and show it in console
+//        String browser = System.getProperty("BROWSER"); 
+//        String tags = System.getProperty("TEST_TAG"); 
+//        String threads = System.getProperty("THREADS"); 
+//
+//        System.out.println(">>> Running on browser: " + browser);
+//        System.out.println(">>> Filtering by tags: " + tags);
+//        System.out.println(">>> Thread count: " + threads);
+//    }
 }

@@ -133,9 +133,8 @@
 					<forkCount>2</forkCount>
 					<reuseForks>true</reuseForks>
 					<systemPropertyVariables>
-						<browser>${BROWSER}</browser>
-						<cucumber.filter.tags>${TEST_TAG}</cucumber.filter.tags>
-						<allure.results.directory>target/allure-results</allure.results.directory>
+						<BROWSER>${BROWSER}</BROWSER>
+						<TEST_TAG>${TEST_TAG}</TEST_TAG>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
@@ -147,9 +146,8 @@
 				<version>2.11.2</version>
 
 				<configuration>
-					<resultsDirectory>${project.build.directory}/target/allure-results</resultsDirectory>
-					<reportDirectory>
-						${project.build.directory}/target/site/allure-maven-plugin</reportDirectory>
+				    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+				    <reportDirectory>${project.build.directory}/site/allure-maven-plugin</reportDirectory>
 				</configuration>
 			</plugin>
 

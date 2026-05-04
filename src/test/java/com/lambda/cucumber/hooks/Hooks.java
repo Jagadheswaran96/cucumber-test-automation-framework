@@ -36,26 +36,15 @@ public class Hooks {
     public static void tearDown(Scenario scenario) throws Exception {
 
         if (scenario.isFailed() && DriverFactory.getDriver() != null) {
-
-            // 1️. Take screenshot
             String screenshot = ScreenshotUtils.getScreenshot();
-
-            // 2️. Allure
             Allure.addAttachment("Failure Screenshot", screenshot);
-
-            // 3️. Extent
             ExtentTestManager.getTest().addScreenCaptureFromBase64String(screenshot);
-            
-            // Stop video
             VideoRecorderUtil.stopRecording();
-
             ExtentTestManager.getTest().fail("Scenario Failed");
-
         } else {
         	VideoRecorderUtil.stopRecording();
             ExtentTestManager.getTest().pass("Scenario Passed");
-        }
-        
+        }      
         // Attach video
         File video = VideoRecorderUtil.getLatestVideo();
         Allure.addAttachment("Execution Video", new FileInputStream(video));

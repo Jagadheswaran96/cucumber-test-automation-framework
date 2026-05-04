@@ -130,7 +130,7 @@ pipeline {
 		])
 
             //Archive artifacts
-            archiveArtifacts artifacts: 'target/allure-results/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
             archiveArtifacts artifacts: 'video/**/*.avi', allowEmptyArchive: true
             archiveArtifacts artifacts: 'target/ExtentReport.html', allowEmptyArchive: true
         }
